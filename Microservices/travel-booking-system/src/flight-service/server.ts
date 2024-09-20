@@ -12,7 +12,8 @@ app.use('/flights', router);
 
 mongoose
   .connect(
-    `mongodb+srv://testuser:test1234@education.bsck2.mongodb.net/?retryWrites=true&w=majority&appName=education`
+    `mongodb://localhost:27017/flights`
+    // `mongodb+srv://testuser:test1234@education.bsck2.mongodb.net/?retryWrites=true&w=majority&appName=education`
   )
   .then(() => {
     console.log(`connected to DB`);
