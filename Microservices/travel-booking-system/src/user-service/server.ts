@@ -8,17 +8,14 @@ const PORT: number = 3001;
 app.use(express.json());
 app.use('/users', router);
 
-mongoose
-  .connect(
-    `mongodb://localhost:27017/flights`
-  )
-  .then(() => {
+const connectDB = async () => {
+  const mongoUri = `mongodb://localhost:27017/flights`;
+  try {
+    await mongoose.connect(mongoUri);
     console.log(`connected to DB`);
-  })
-  .catch((err) => {
+  } catch (err) {
     console.log(`error in connecting to the DB: ${err}`);
-  });
+  }
+};
 
-app.listen(PORT, () => {
-  console.log(`the server is open at port: http://localhost:${PORT}/users`);
-});
+export { app, connectDB };

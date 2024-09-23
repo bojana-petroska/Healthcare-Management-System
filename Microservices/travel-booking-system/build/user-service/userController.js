@@ -6,11 +6,13 @@ const get = async (req, res) => {
 };
 const getById = async (req, res) => {
     const userId = req.params.id;
-    const user = await User.findById(userId);
-    if (!user) {
-        res.status(404).send({ message: `user not found` });
+    try {
+        const user = await User.findById(userId);
+        res.status(200).send(user);
     }
-    res.status(200).send(user);
+    catch (error) {
+        res.status(404).send(error);
+    }
 };
 const create = async (req, res) => {
     const { name, email } = req.body;

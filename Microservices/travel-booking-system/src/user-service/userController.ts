@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import User from './userModels.js';
+import { error } from 'console';
 
 // CRUD
 const get = async (req: Request, res: Response) => {
@@ -9,11 +10,12 @@ const get = async (req: Request, res: Response) => {
 
 const getById = async (req: Request, res: Response) => {
   const userId = req.params.id;
-  const user = await User.findById(userId);
-  if (!user) {
-    res.status(404).send({ message: `user not found` });
+  try {
+    const user = await User.findById(userId);
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(404).send(error);
   }
-  res.status(200).send(user);
 };
 
 const create = async (req: Request, res: Response) => {
