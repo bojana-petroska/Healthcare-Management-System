@@ -6,7 +6,7 @@ const app = express();
 const PORT: number = 3001;
 
 app.use(express.json());
-app.use('/users', router);
+app.use('/api/users', router);
 
 const connectDB = async () => {
   const mongoUri = `mongodb://localhost:27017/flights`;
