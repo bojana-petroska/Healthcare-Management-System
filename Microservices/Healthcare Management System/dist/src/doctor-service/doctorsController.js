@@ -1,37 +1,15 @@
-import { Doctor } from '../entities/Doctor.js';
-import { AppDataSource } from '../database/ormconfig.js';
-import { Appointment } from '../entities/Appointments.js';
-const userRepo = AppDataSource.getRepository(Doctor);
+import Doctor from '../models/Doctor.js';
 const getAllDoctors = async (req, res) => {
-    try {
-        const doctors = await userRepo.find();
-        res.send(doctors);
-    }
-    catch (err) {
-        res.status(500).send(err);
-    }
+    const users = await Doctor.find();
+    res.send(users);
 };
 const createDoctor = async (req, res) => {
     const { firstName, lastName, specialty } = req.body;
-    const doctor = userRepo.create({ firstName, lastName, specialty });
-    await userRepo.save(doctor);
+    const doctor = new Doctor({ firstName, lastName, specialty });
+    await doctor.save();
     res.status(201).send(doctor);
-};
-const createAppointment = async (req, res) => {
-    const appointmentData = req.body;
-    console.log(req.body);
-    try {
-        const bookingRepository = AppDataSource.getRepository(Appointment);
-        const newAppointments = bookingRepository.create(appointmentData);
-        await bookingRepository.save(newAppointments);
-        res.status(201).json(newAppointments);
-    }
-    catch (err) {
-        res.status(400).json(err);
-    }
 };
 export default {
     getAllDoctors,
     createDoctor,
-    createAppointment,
 };

@@ -1,23 +1,24 @@
 import express from 'express';
 import router from './patientRoutes.js';
-import { AppDataSource } from '../database/ormconfig.js';
+import mongoose from 'mongoose';
 const app = express();
+const PORT = 3001;
 app.use(express.json());
-const port = 3001;
-const connectToSql = async () => {
+app.use('/patients', router);
+const connectDB = async () => {
+    const mongoUri = `mongodb://localhost:27017/flights`;
     try {
-        await AppDataSource.initialize();
-        console.log('SQL database connected');
+        await mongoose.connect(mongoUri);
+        console.log(`connected to DB`);
     }
     catch (err) {
-        console.log('Error in connecting to the db', err);
+        console.log(`error in connecting to the DB: ${err}`);
     }
 };
 const startServer = async () => {
-    await connectToSql();
-    app.use('/patients', router);
-    app.listen(port, () => {
-        console.log(`patient's server is running on http://localhost:${port}`);
+    await connectDB();
+    app.listen(PORT, () => {
+        console.log(`Patient's server running on port http://localhost:${PORT}/patients`);
     });
 };
 startServer();
