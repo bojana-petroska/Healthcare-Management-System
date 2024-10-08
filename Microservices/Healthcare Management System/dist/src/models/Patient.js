@@ -9,6 +9,13 @@ const patientSchema = new Schema({
         required: true,
         unique: true
     },
+    age: {
+        type: Number,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now(),
+    }
 });
 const Patient = mongoose.model('Patient', patientSchema);
 export default Patient;

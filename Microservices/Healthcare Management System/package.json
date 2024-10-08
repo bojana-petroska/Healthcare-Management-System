@@ -7,7 +7,8 @@
   "scripts": {
     "build": "tsc",
     "patient": "ts-node dist/src/patient-service/server.js",
-    "doctor": "ts-node dist/src/doctor-service/server.js"
+    "doctor": "ts-node dist/src/doctor-service/server.js",
+    "app": "ts-node dist/src/appointment-service/server.js"
   },
   "keywords": [],
   "author": "",

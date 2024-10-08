@@ -4,8 +4,8 @@ const getAllDoctors = async (req, res) => {
     res.send(users);
 };
 const createDoctor = async (req, res) => {
-    const { firstName, lastName, specialty } = req.body;
-    const doctor = new Doctor({ firstName, lastName, specialty });
+    const { name, lastName, specialty } = req.body;
+    const doctor = new Doctor({ name, lastName, specialty });
     await doctor.save();
     res.status(201).send(doctor);
 };
